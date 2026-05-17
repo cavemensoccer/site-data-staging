@@ -58,6 +58,15 @@
             gap: 1.5rem;
         }
 
+        .side-nav li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+            padding-bottom: 1.5rem;
+        }
+        .side-nav li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
         .side-nav li a {
             color: #fff;
             text-decoration: none;
@@ -66,9 +75,7 @@
             font-size: 1.25rem;
             letter-spacing: 1.2px;
             display: inline-block;
-            padding-bottom: 6px;
-            transition: color 0.3s, border-color 0.3s;
-            border-bottom: 3px solid transparent;
+            transition: color 0.3s;
         }
 
         .side-nav li a:hover {

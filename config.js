@@ -14,7 +14,8 @@ window.SOCCER_CONFIG = {
         'fresh-soph': "1805648060"
     },
     DOC_URLS: {
-        'coaching-from-sideline': "https://docs.google.com/document/d/e/2PACX-1vRiyHoWWXt_b3FOMsFqLsDXwwexBRkyd-LfgK0VdqlmllPJUPoGuufB2F91bSmS0g/pub"
+        'coaching-from-sideline': "https://docs.google.com/document/d/e/2PACX-1vRiyHoWWXt_b3FOMsFqLsDXwwexBRkyd-LfgK0VdqlmllPJUPoGuufB2F91bSmS0g/pub",
+        'pay-team-fees': "https://docs.google.com/document/d/e/2PACX-1vRQ1zcjbnlY0D5216xnT2kl8CEHGlMQY3_npI0uWVj5CM1GSt1vqxsD0a2Prcq5Hg/pub"
     },
     SLOGANS: [
         "P.R.O.U.D. to be a Caveman!",

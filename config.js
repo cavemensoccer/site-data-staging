@@ -1,21 +1,21 @@
 window.SOCCER_CONFIG = {
     ROSTER_BASES: {
-        'all': "https://docs.google.com/spreadsheets/d/e/2PACX-1vQHzykcI145UBYrqi8tU7KpV4fngoANkemMUon3uucPygw-feM0V96h--82t0BXVtcUlRB7CtY8PO-X/pub?output=csv"
+        'all': "https://docs.google.com/spreadsheets/d/e/2PACX-1vSfTv6z907TRUDwrFXiSfbzKDogyK78EbHgYeRADZWv0-mHkEXelzGXrm-TJ5WeOhR3DM_MeDsFaN1J/pub?output=csv"
     },
     ROSTER_META_GIDS: {
         'all': "1671352040"
     },
     SCHEDULE_BASES: {
-        'jv-varsity': "https://docs.google.com/spreadsheets/d/e/2PACX-1vTxe3iw-uPzxU4mucH6zAsq3hRjfYXCrBYE9i335ER8-KV7I539cmgO5N4zsXmeCTG8laS1qj3KsCo9/pub?output=csv",
-        'fresh-soph': "https://docs.google.com/spreadsheets/d/e/2PACX-1vQXeYrzcVH3btKqa5N08bzaZdWvhdGkQltVex6-Fevz5kZbzoSaCwxpE-1lj_TlMkQ0UKMOKtuC5pQD/pub?output=csv"
+        'jv-varsity': "https://docs.google.com/spreadsheets/d/e/2PACX-1vQB6Etw0mOQrr6FqV5XDgMpD1N7I3luQJEn8jSxkovumRM-_0XAJI8Os9AOkV21JP0CzqhBpcs5vqIt/pub?output=csv",
+        'fresh-soph': "https://docs.google.com/spreadsheets/d/e/2PACX-1vSzOwaCdx7xhGN8S0OouQi6ctmFRg2goB35Q3Wilb3jPtVCja4rFgDV3XaNHYGpfTOtRNhkcnfAxk-6/pub?output=csv"
     },
     SCHEDULE_META_GIDS: {
         'jv-varsity': "1671352040",
         'fresh-soph': "1805648060"
     },
     DOC_URLS: {
-        'coaching-from-sideline': "https://docs.google.com/document/d/e/2PACX-1vRiyHoWWXt_b3FOMsFqLsDXwwexBRkyd-LfgK0VdqlmllPJUPoGuufB2F91bSmS0g/pub",
-        'pay-team-fees': "https://docs.google.com/document/d/e/2PACX-1vRQ1zcjbnlY0D5216xnT2kl8CEHGlMQY3_npI0uWVj5CM1GSt1vqxsD0a2Prcq5Hg/pub"
+        'coaching-from-sideline': "https://docs.google.com/document/d/e/2PACX-1vS9J3zgTSEneQSSItZZkTwBrixJIePBEs-8I42X8OAU5zLW8flyNYfhUKuRCeSsSQ/pub",
+        'pay-team-fees': "https://docs.google.com/document/d/e/2PACX-1vTsSSB8R_Tt94UaCz9XD5PC-kWhU7vmave5GCbEYSiw-6K8n8WIRsDctVA43jPwyA/pub"
     },
     SLOGANS: [
         "P.R.O.U.D. to be a Caveman!",

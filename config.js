@@ -1,7 +1,4 @@
 window.SOCCER_CONFIG = {
-    ROSTER_BASES: {
-        'all': "https://docs.google.com/spreadsheets/d/e/2PACX-1vSfTv6z907TRUDwrFXiSfbzKDogyK78EbHgYeRADZWv0-mHkEXelzGXrm-TJ5WeOhR3DM_MeDsFaN1J/pub?output=csv"
-    },
     ROSTER_META_GIDS: {
         'all': "1671352040"
     },
@@ -16,22 +13,7 @@ window.SOCCER_CONFIG = {
     DOC_URLS: {
         'coaching-from-sideline': "https://docs.google.com/document/d/e/2PACX-1vS9J3zgTSEneQSSItZZkTwBrixJIePBEs-8I42X8OAU5zLW8flyNYfhUKuRCeSsSQ/pub",
         'pay-team-fees': "https://docs.google.com/document/d/e/2PACX-1vTsSSB8R_Tt94UaCz9XD5PC-kWhU7vmave5GCbEYSiw-6K8n8WIRsDctVA43jPwyA/pub"
-    },
-    SLOGANS: [
-        "P.R.O.U.D. to be a Caveman!",
-        "2024 State Champions!",
-        "2025 State Champions!",
-        "Back2Back State Champions!",
-        "The Energy Bus!"
-    ]
-};
-
-/**
- * Shared utility to select a random team slogan.
- */
-window.getRandomSlogan = function() {
-    const slogans = window.SOCCER_CONFIG.SLOGANS;
-    return slogans[Math.floor(Math.random() * slogans.length)];
+    }
 };
 
 /**

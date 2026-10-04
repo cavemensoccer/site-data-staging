@@ -1,6 +1,6 @@
 window.SOCCER_CONFIG = {
     ROSTER_BASES: {
-        'all': "https://docs.google.com/spreadsheets/d/e/2PACX-1vSfTv6z907TRUDwrFXiSfbzKDogyK78EbHgYeRADZWv0-mHkEXelzGXrm-TJ5WeOhR3DM_MeDsFaN1J/pub?output=csvs"
+        'all': "https://docs.google.com/spreadsheets/d/e/2PACX-1vSfTv6z907TRUDwrFXiSfbzKDogyK78EbHgYeRADZWv0-mHkEXelzGXrm-TJ5WeOhR3DM_MeDsFaN1J/pub?output=csv"
     },
     ROSTER_META_GIDS: {
         'all': "1671352040"

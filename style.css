@@ -177,10 +177,17 @@ header {
     padding-top: 80px;
     display: flex;
     flex-direction: column;
+    /* With only 4 top-level items now (down from 9 before the dropdown
+       grouping), default top-alignment left a lot of empty space collecting
+       after the last item -- making it look crammed against the one above
+       it rather than part of an evenly-balanced group. Centering the whole
+       block distributes that space above and below instead. */
+    justify-content: center;
     box-shadow: 2px 0 10px rgba(0,0,0,0.5);
 }
 .side-menu.active { left: 0; }
 .side-menu a {
+    display: block;
     padding: 15px 24px;
     color: #fff;
     text-decoration: none;
@@ -219,7 +226,7 @@ header {
 }
 .nav-group .nav-subitems {
     list-style: none;
-    margin: 0.75rem 0 0;
+    margin: 0.75rem 0 1rem;
     padding: 0 0 0 1rem;
     display: flex;
     flex-direction: column;
@@ -247,10 +254,10 @@ header {
 }
 
 .side-menu .nav-group summary {
-    padding: 15px 30px;
+    padding: 15px 24px;
     color: #fff;
     font-family: 'Oswald', sans-serif;
-    font-size: 1.2rem;
+    font-size: 0.95rem;
     text-transform: uppercase;
     border-bottom: 1px solid #222;
     transition: background 0.2s;

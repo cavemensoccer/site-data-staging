@@ -25,6 +25,13 @@ header {
     border-bottom: 2px solid #111;
 }
 
+/* Lets a JS-filled wrapper div sit inside <header> without disrupting its
+   flex layout -- the wrapper itself doesn't participate in the flex box,
+   only its children do, same as if the wrapper weren't there at all. */
+.chrome-fill {
+    display: contents;
+}
+
 .logo-group {
     display: flex;
     align-items: center;
@@ -184,6 +191,68 @@ header {
     transition: background 0.2s;
 }
 .side-menu a:hover { background: #222; color: var(--af-red); }
+
+/* Nav dropdown groups (Team / Resources / Photos) -- shared by both the
+   homepage's visible side-nav and the hamburger side-menu. Uses native
+   <details>/<summary> for the expand/collapse, no custom JS needed. */
+.nav-group details summary {
+    cursor: pointer;
+    list-style: none;
+}
+.nav-group details summary::-webkit-details-marker { display: none; }
+.nav-group details summary::after {
+    content: '+';
+    margin-left: 8px;
+    font-weight: normal;
+}
+.nav-group details[open] summary::after {
+    content: '\2212';
+}
+.nav-group .nav-subitems {
+    list-style: none;
+    margin: 0.75rem 0 0;
+    padding: 0 0 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.side-nav .nav-group summary {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.25rem;
+    letter-spacing: 1.2px;
+}
+/* Reset the border-bottom/padding-bottom that .side-nav li applies to every
+   <li> descendant, including these nested subitems -- without this, each
+   subitem gets its own divider line instead of just the group as a whole. */
+.side-nav .nav-subitems li {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+.side-nav .nav-subitems li a {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.side-menu .nav-group summary {
+    padding: 15px 30px;
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    border-bottom: 1px solid #222;
+    transition: background 0.2s;
+}
+.side-menu .nav-group summary:hover { background: #222; color: var(--af-red); }
+.side-menu .nav-group .nav-subitems { padding-left: 2rem; }
+.side-menu .nav-subitems li a {
+    padding: 10px 0;
+    border-bottom: none;
+    font-size: 1rem;
+}
 .menu-overlay {
     position: fixed;
     top: 0;

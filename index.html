@@ -23,7 +23,7 @@
             background-position: center 30%;
             background-repeat: no-repeat;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
         }
 
         .hero::after {
@@ -34,10 +34,15 @@
             z-index: 1;
         }
 
+        /* Anchored from the top with a fixed offset rather than vertically
+           centered -- centering would re-flow the whole block (including
+           items above the one you clicked) every time a nav dropdown
+           opens/closes, since growing the content height shifts the
+           midpoint used for centering. */
         .side-nav-container {
             position: relative;
             z-index: 2;
-            padding: 40px 8%;
+            padding: 22vh 8% 40px;
         }
 
         .side-nav {
@@ -76,7 +81,7 @@
 
         @media (max-width: 768px) {
             .hero { min-height: 60vh; }
-            .side-nav-container { padding: 30px 5%; }
+            .side-nav-container { padding: 18vh 5% 30px; }
             .side-nav li a { font-size: 1rem; }
         }
     </style>

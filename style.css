@@ -181,11 +181,11 @@ header {
 }
 .side-menu.active { left: 0; }
 .side-menu a {
-    padding: 15px 30px;
+    padding: 15px 24px;
     color: #fff;
     text-decoration: none;
     font-family: 'Oswald', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.05rem;
     text-transform: uppercase;
     border-bottom: 1px solid #222;
     transition: background 0.2s;

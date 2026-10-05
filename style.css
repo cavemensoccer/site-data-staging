@@ -168,8 +168,8 @@ header {
 .side-menu {
     position: fixed;
     top: 0;
-    left: -280px;
-    width: 280px;
+    left: -320px;
+    width: 320px;
     height: 100%;
     background: #111;
     z-index: 2000;
@@ -185,7 +185,7 @@ header {
     color: #fff;
     text-decoration: none;
     font-family: 'Oswald', sans-serif;
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     text-transform: uppercase;
     border-bottom: 1px solid #222;
     transition: background 0.2s;

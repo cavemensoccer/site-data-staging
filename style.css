@@ -192,6 +192,15 @@ header {
 }
 .side-menu a:hover { background: #222; color: var(--af-red); }
 
+/* Reset default <ul> styling (bullets, ~40px left indent, margin) on the
+   hamburger menu's nav list -- the nested .nav-subitems list below already
+   has this, but the outer list wrapping the top-level items never did. */
+#site-nav-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
 /* Nav dropdown groups (Team / Resources / Photos) -- shared by both the
    homepage's visible side-nav and the hamburger side-menu. Uses native
    <details>/<summary> for the expand/collapse, no custom JS needed. */

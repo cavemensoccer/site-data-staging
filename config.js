@@ -16,7 +16,7 @@ window.SOCCER_CONFIG = {
     DOC_URLS: {
         'coaching-from-sideline': "https://docs.google.com/document/d/e/2PACX-1vS9J3zgTSEneQSSItZZkTwBrixJIePBEs-8I42X8OAU5zLW8flyNYfhUKuRCeSsSQ/pub",
         'pay-team-fees': "https://docs.google.com/document/d/e/2PACX-1vTsSSB8R_Tt94UaCz9XD5PC-kWhU7vmave5GCbEYSiw-6K8n8WIRsDctVA43jPwyA/pub",
-        'tryout_information': "https://docs.google.com/document/d/e/2PACX-1vRhDmhM7vnuwGetMjWx3gVQ0lsxI2dgBabqwOwZZGcXZCpGZvT2Oo3AtH0BEucRXA/pubb"
+        'tryout_information': "https://docs.google.com/document/d/e/2PACX-1vRhDmhM7vnuwGetMjWx3gVQ0lsxI2dgBabqwOwZZGcXZCpGZvT2Oo3AtH0BEucRXA/pub"
     },
     PHOTO_LINKS: {
         '2025': "https://galleries.tylerstaten.com/americanforkbsoccer2025/"

@@ -19,7 +19,8 @@ window.SOCCER_CONFIG = {
         'tryout_information': "https://docs.google.com/document/d/e/2PACX-1vRhDmhM7vnuwGetMjWx3gVQ0lsxI2dgBabqwOwZZGcXZCpGZvT2Oo3AtH0BEucRXA/pub"
     },
     PHOTO_LINKS: {
-        '2025': "https://galleries.tylerstaten.com/americanforkbsoccer2025/"
+        '2025': "https://galleries.tylerstaten.com/americanforkbsoccer2025/",
+        '2026': "https://drive.google.com/drive/u/0/folders/1HUr7HDpufdfUbYRLjmI_0ZVaN-nYzHBW"
     }
 };
 

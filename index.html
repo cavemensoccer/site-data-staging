@@ -100,6 +100,20 @@
     <script src="nav.js"></script>
     <script>
         initSiteChrome({ headerId: 'site-header', navContentId: 'site-nav', isHome: true });
+
+        // Hero photo: pulled from Drive via HOME_HERO_PHOTO_ID if set, falling
+        // back to the local image otherwise so a missing/bad config value
+        // never breaks the page. The Configuration sheet may hold either a
+        // full Drive share link or a bare file ID -- extract whichever was
+        // given rather than requiring the exact substring every time.
+        (function () {
+            const raw = window.SOCCER_CONFIG && window.SOCCER_CONFIG.HOME_HERO_PHOTO_ID;
+            if (!raw) return;
+            const match = raw.match(/\/d\/([a-zA-Z0-9_-]+)/);
+            const fileId = match ? match[1] : raw;
+            document.querySelector('.hero').style.backgroundImage =
+                `url('https://lh3.googleusercontent.com/d/${fileId}=s1600')`;
+        })();
     </script>
 </body>
 </html>

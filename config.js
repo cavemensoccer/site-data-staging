@@ -21,7 +21,8 @@ window.SOCCER_CONFIG = {
     PHOTO_LINKS: {
         '2025': "https://galleries.tylerstaten.com/americanforkbsoccer2025/",
         '2026': "https://drive.google.com/drive/u/0/folders/1HUr7HDpufdfUbYRLjmI_0ZVaN-nYzHBW"
-    }
+    },
+    'HOME_HERO_PHOTO_ID': "https://drive.google.com/file/d/14EfQYmSR3yoGil5gYZm5YtsiOOTPWy6V/view?usp=sharing"
 };
 
 /**

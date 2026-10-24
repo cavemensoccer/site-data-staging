@@ -166,6 +166,13 @@ header {
     transition: 0.3s;
 }
 .side-menu {
+    /* No box-sizing: border-box exists anywhere on this site, so under the
+       default content-box model, padding-top below was adding to (not
+       counting within) height: 100% -- making the actual box ~80px taller
+       than the viewport, with that excess rendered below the visible
+       screen. overflow-y: auto can only reveal content that doesn't fit
+       *within* a box, not part of the box itself hanging off-screen. */
+    box-sizing: border-box;
     position: fixed;
     top: 0;
     left: -320px;

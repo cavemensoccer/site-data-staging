@@ -177,12 +177,10 @@ header {
     padding-top: 80px;
     display: flex;
     flex-direction: column;
-    /* With only 4 top-level items now (down from 9 before the dropdown
-       grouping), default top-alignment left a lot of empty space collecting
-       after the last item -- making it look crammed against the one above
-       it rather than part of an evenly-balanced group. Centering the whole
-       block distributes that space above and below instead. */
-    justify-content: center;
+    /* Scrollable: with all 3 dropdown groups open at once, content can grow
+       taller than the panel -- without this, anything past the bottom edge
+       was just clipped with no way to reach it. */
+    overflow-y: auto;
     box-shadow: 2px 0 10px rgba(0,0,0,0.5);
 }
 .side-menu.active { left: 0; }

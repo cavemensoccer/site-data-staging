@@ -160,6 +160,26 @@
             select.value = currentYear;
         }
 
+        // lh3.googleusercontent.com is an unofficial, undocumented Google URL
+        // pattern for serving Drive-hosted images -- not CDN infrastructure
+        // built for a full roster's worth of simultaneous requests. Under that
+        // burst, some photos can transiently fail even though the file is
+        // fine, which previously required a manual page refresh to fix. Retry
+        // a couple of times with a short delay before giving up.
+        function retryPlayerImage(img) {
+            const attempts = parseInt(img.dataset.retryCount || '0', 10);
+            if (attempts >= 2) {
+                img.style.opacity = '0';
+                return;
+            }
+            img.dataset.retryCount = attempts + 1;
+            const src = img.src;
+            setTimeout(() => {
+                img.src = '';
+                img.src = src;
+            }, 500 * (attempts + 1));
+        }
+
         async function fetchRoster() {
             const output = document.getElementById('roster-output');
             const title = document.getElementById('page-title');
@@ -231,7 +251,7 @@
 
                     html += `
                         <div class="player-card">
-                            <img src="${imgSrc}" alt="${p.name}" class="player-image" onerror="this.style.opacity='0'">
+                            <img src="${imgSrc}" alt="${p.name}" class="player-image" loading="lazy" onerror="retryPlayerImage(this)">
                             <div class="player-name-row">
                                 ${p.number ? `<span class="player-number">#${p.number}</span> ` : ''}${p.name}
                             </div>

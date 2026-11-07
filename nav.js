@@ -11,7 +11,8 @@ const NAV_GROUPS = [
         label: 'Team',
         items: [
             { label: 'Roster', href: 'roster.html' },
-            { label: 'Schedule', href: 'schedule.html' }
+            { label: 'Schedule', href: 'schedule.html' },
+            { label: 'Tryouts', href: 'tryouts.html' }
         ]
     },
     {

@@ -92,7 +92,14 @@
     <script>
         initSiteChrome({ headerId: 'site-header', navContentId: 'site-nav-items', navToggleId: 'side-menu', hamburger: true });
 
-        async function fetchDoc() {
+        // Google's publish-to-web endpoint intermittently returns a sign-in/
+        // cookie-consent gate instead of real content (confirmed directly --
+        // the exact same URL returned full content on one request and a gate
+        // page on the next) -- a transient failure, not a real problem with
+        // the doc. Retry a couple of times before showing an error.
+        const DOC_FETCH_MAX_ATTEMPTS = 3;
+
+        async function fetchDoc(attempt = 1) {
             const output = document.getElementById('doc-content-output');
 
             try {
@@ -168,12 +175,18 @@
 
                     // 5. Inject the cleaned HTML
                     output.innerHTML = mainContentDiv.innerHTML;
+                } else if (attempt < DOC_FETCH_MAX_ATTEMPTS) {
+                    setTimeout(() => fetchDoc(attempt + 1), 800 * attempt);
                 } else {
                     output.innerHTML = "<p style='text-align:center;'>Could not find document content. The Google Doc might not be published correctly or its structure has changed.</p>";
                 }
 
             } catch (err) {
-                output.innerHTML = `<div style="text-align:center; padding: 40px; background: #111; border-radius: 4px;">⚠️ Could not load the document. Please refresh the page to try again.</div>`;
+                if (attempt < DOC_FETCH_MAX_ATTEMPTS) {
+                    setTimeout(() => fetchDoc(attempt + 1), 800 * attempt);
+                } else {
+                    output.innerHTML = `<div style="text-align:center; padding: 40px; background: #111; border-radius: 4px;">⚠️ Could not load the document. Please refresh the page to try again.</div>`;
+                }
             }
         }
         fetchDoc();

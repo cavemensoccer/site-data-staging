@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>American Fork Cavemen Soccer | Tryouts</title>
+    <link rel="icon" type="image/png" href="./_assets/media/743114cb73f024a44c543e53d752d24d.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        header {
+            position: relative;
+            z-index: 1000;
+            background: var(--af-dark-gray, #1a1a1a);
+        }
+        .page-header {
+            position: relative;
+            z-index: 1000;
+            background: var(--af-dark-gray, #1a1a1a);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--af-white);
+            padding-bottom: 10px;
+        }
+        #doc-content-output {
+            background: var(--af-dark-gray);
+            padding: 40px;
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            line-height: 1.8;
+            color: #ddd;
+            min-height: 400px;
+            position: relative;
+            z-index: 1;
+        }
+        /* Strip Google Docs background/color bleed — inline styles are already removed by JS */
+        #doc-content-output * {
+            background-color: transparent !important;
+            color: inherit !important;
+            max-width: 100% !important;
+        }
+        #doc-content-output h1,
+        #doc-content-output h2,
+        #doc-content-output h3,
+        #doc-content-output h4,
+        #doc-content-output h5,
+        #doc-content-output h6 {
+            font-family: 'Oswald', sans-serif !important;
+            color: var(--af-white) !important;
+            text-transform: uppercase;
+            margin-top: 1.5em;
+            border-bottom: 1px solid #333;
+            padding-bottom: 8px;
+        }
+        #doc-content-output h1 { font-size: 2rem; }
+        #doc-content-output h2 { font-size: 1.6rem; }
+        #doc-content-output h3 { font-size: 1.3rem; }
+        #doc-content-output h4 { font-size: 1.1rem; }
+        #doc-content-output h5, #doc-content-output h6 { font-size: 1rem; }
+        #doc-content-output p { margin-bottom: 1.2em; }
+        #doc-content-output ul { margin-left: 25px; margin-bottom: 1.2em; }
+        #doc-content-output strong { color: var(--af-white); }
+
+        .results-section {
+            margin-top: 40px;
+        }
+        .results-placeholder {
+            background: var(--af-dark-gray);
+            padding: 40px;
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            text-align: center;
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Open Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <div id="site-header" class="chrome-fill"></div>
+    </header>
+
+    <nav class="side-menu" id="side-menu">
+        <a href="index.html">Home</a>
+        <ul id="site-nav-items"></ul>
+    </nav>
+    <div class="menu-overlay" id="menu-overlay"></div>
+
+    <div class="container">
+        <div class="page-header"><h2 id="doc-title">Upcoming Tryouts</h2></div>
+        <div id="doc-content-output">
+            <div class="loader"><img src="./_assets/media/cavemenloading.gif" alt="Loading..."></div>
+        </div>
+
+        <div class="results-section">
+            <div class="page-header"><h2>Tryout Results</h2></div>
+            <div class="results-placeholder">
+                <p>Past tryout results will be posted here once available.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="nav.js"></script>
+    <script>
+        initSiteChrome({ headerId: 'site-header', navContentId: 'site-nav-items', navToggleId: 'side-menu', hamburger: true });
+
+        async function fetchTryoutsDoc() {
+            const output = document.getElementById('doc-content-output');
+
+            try {
+                output.innerHTML = `<div class="loader"><img src="./_assets/media/cavemenloading.gif" alt="Loading..."></div>`;
+
+                const url = window.SOCCER_CONFIG.DOC_URLS['tryouts'];
+                const [response] = await Promise.all([
+                    fetch(url),
+                    new Promise(r => setTimeout(r, 640))
+                ]);
+                const text = await response.text();
+
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, 'text/html');
+
+                const mainContentDiv = doc.getElementById('contents');
+
+                if (mainContentDiv) {
+                    // 1. Before stripping anything, find which Google CSS classes carry
+                    //    text-decoration so we can re-apply them as inline styles.
+                    //    Google Docs uses generated class names (e.g. .c5) with a <style> block —
+                    //    it does not use inline styles or <u> tags for underlines.
+                    const underlineClasses = new Set();
+                    doc.querySelectorAll('style').forEach(styleEl => {
+                        const rulePattern = /([^{]+)\{([^}]*)\}/g;
+                        let match;
+                        while ((match = rulePattern.exec(styleEl.textContent)) !== null) {
+                            if (/text-decoration\s*:\s*underline/.test(match[2])) {
+                                (match[1].match(/\.[\w-]+/g) || []).forEach(cn => underlineClasses.add(cn.slice(1)));
+                            }
+                        }
+                    });
+                    if (underlineClasses.size > 0) {
+                        underlineClasses.forEach(cls => {
+                            mainContentDiv.querySelectorAll('.' + cls).forEach(el => {
+                                el.style.textDecoration = 'underline';
+                            });
+                        });
+                    }
+
+                    // 2. Remove Google's footer, styles, scripts, and links
+                    const footer = mainContentDiv.querySelector('.doc-footer');
+                    if (footer) footer.remove();
+                    mainContentDiv.querySelectorAll('style').forEach(s => s.remove());
+                    mainContentDiv.querySelectorAll('script').forEach(s => s.remove());
+                    mainContentDiv.querySelectorAll('link').forEach(l => l.remove());
+
+                    // 3. Strip styles and classes from the container itself
+                    mainContentDiv.removeAttribute('style');
+                    mainContentDiv.removeAttribute('class');
+
+                    // 4. Strip all inline styles and classes from children to prevent the "white box",
+                    //    but preserve text-decoration that we stamped on in step 1.
+                    mainContentDiv.querySelectorAll('[style]').forEach(el => {
+                        const textDecoration = el.style.textDecoration;
+                        el.removeAttribute('style');
+                        if (textDecoration && textDecoration !== 'none') {
+                            el.style.textDecoration = textDecoration;
+                        }
+                    });
+                    mainContentDiv.querySelectorAll('[class]').forEach(el => el.removeAttribute('class'));
+
+                    // 5. Inject the cleaned HTML
+                    output.innerHTML = mainContentDiv.innerHTML;
+                } else {
+                    output.innerHTML = "<p style='text-align:center;'>Could not find document content. The Google Doc might not be published correctly or its structure has changed.</p>";
+                }
+
+            } catch (err) {
+                output.innerHTML = `<div style="text-align:center; padding: 40px; background: #111; border-radius: 4px;">⚠️ Could not load the document. Please refresh the page to try again.</div>`;
+            }
+        }
+        fetchTryoutsDoc();
+    </script>
+</body>
+</html>

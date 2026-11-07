@@ -130,26 +130,37 @@
 
                 if (mainContentDiv) {
                     // 1. Before stripping anything, find which Google CSS classes carry
-                    //    text-decoration so we can re-apply them as inline styles.
-                    //    Google Docs uses generated class names (e.g. .c5) with a <style> block —
-                    //    it does not use inline styles or <u> tags for underlines.
-                    const underlineClasses = new Set();
+                    //    bold, underline, or centered/right-aligned text so we can re-apply
+                    //    them as inline styles. Google Docs expresses nearly all formatting
+                    //    this way -- generated class names (e.g. .c5) in a <style> block --
+                    //    not semantic tags (<strong>, <u>) or inline styles.
+                    const RESCUED_STYLE_PROPS = { 'text-decoration': 'textDecoration', 'font-weight': 'fontWeight', 'text-align': 'textAlign' };
+                    const rescuedClassStyles = {}; // class name -> { cssProp: value }
                     doc.querySelectorAll('style').forEach(styleEl => {
                         const rulePattern = /([^{]+)\{([^}]*)\}/g;
                         let match;
                         while ((match = rulePattern.exec(styleEl.textContent)) !== null) {
-                            if (/text-decoration\s*:\s*underline/.test(match[2])) {
-                                (match[1].match(/\.[\w-]+/g) || []).forEach(cn => underlineClasses.add(cn.slice(1)));
+                            const found = {};
+                            Object.keys(RESCUED_STYLE_PROPS).forEach(prop => {
+                                const propMatch = new RegExp(prop + '\\s*:\\s*([^;]+)').exec(match[2]);
+                                if (propMatch) found[prop] = propMatch[1].trim();
+                            });
+                            if (Object.keys(found).length > 0) {
+                                (match[1].match(/\.[\w-]+/g) || []).forEach(cn => {
+                                    const cls = cn.slice(1);
+                                    rescuedClassStyles[cls] = Object.assign(rescuedClassStyles[cls] || {}, found);
+                                });
                             }
                         }
                     });
-                    if (underlineClasses.size > 0) {
-                        underlineClasses.forEach(cls => {
-                            mainContentDiv.querySelectorAll('.' + cls).forEach(el => {
-                                el.style.textDecoration = 'underline';
+                    Object.keys(rescuedClassStyles).forEach(cls => {
+                        mainContentDiv.querySelectorAll('.' + cls).forEach(el => {
+                            Object.entries(rescuedClassStyles[cls]).forEach(([cssProp, value]) => {
+                                if (value === 'none' || value === 'normal') return;
+                                el.style[RESCUED_STYLE_PROPS[cssProp]] = value;
                             });
                         });
-                    }
+                    });
 
                     // 2. Remove Google's footer, styles, scripts, and links
                     const footer = mainContentDiv.querySelector('.doc-footer');
@@ -163,13 +174,13 @@
                     mainContentDiv.removeAttribute('class');
 
                     // 4. Strip all inline styles and classes from children to prevent the "white box",
-                    //    but preserve text-decoration that we stamped on in step 1.
+                    //    but preserve the styles we stamped on in step 1.
                     mainContentDiv.querySelectorAll('[style]').forEach(el => {
-                        const textDecoration = el.style.textDecoration;
+                        const preserved = { textDecoration: el.style.textDecoration, fontWeight: el.style.fontWeight, textAlign: el.style.textAlign };
                         el.removeAttribute('style');
-                        if (textDecoration && textDecoration !== 'none') {
-                            el.style.textDecoration = textDecoration;
-                        }
+                        Object.entries(preserved).forEach(([prop, value]) => {
+                            if (value && value !== 'none' && value !== 'normal') el.style[prop] = value;
+                        });
                     });
                     mainContentDiv.querySelectorAll('[class]').forEach(el => el.removeAttribute('class'));
 
